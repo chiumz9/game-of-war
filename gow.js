@@ -1,139 +1,132 @@
-/*cardNum = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
-suites = ["D", "C", "H", "S"];
-//deck = []
-//
-//for (let i = 0; i < cardNum.length; i++){
-//    for (let j = 0; j < suites.length; j++){
-//        console.log('"'+cardNum[i] + suites[j] + '"');
-//        deck.push(cardNum[i] + suites[j])
-//    }
-//    let j = 0;
-//
-//}
-//console.log(deck)
-//console.log(typeof deck)
-placeHold = 0;
-card1 = 0;
-card2 = 0;
-//DECK SETUP 52CARDS UNSUITED
-fullDeck=[];
-for(let  j=0;  j<4 ;j++){
-    for (let i=0; i<cardNum.length; i++)
-    fullDeck.push(cardNum[i]);
-}
-
-//CARD DRAWN W/ RANDOM
-let drawnCard = function(card){
-    return Math.floor(Math.random() * fullDeck.length);
-}
-//CARD REMOVAL FROM DECK FOR PLAYER ONE
-let rmCardFrmDeck = function(drawnCard){
-    fullDeck.splice(drawnCard, 1);
-    console.log(fullDeck);
-    return
-}
-//CARD REMOVAL FROM DECK FOR PLAYER TWO
-let rmCardFrmDeck2=function(rmCard){
-    fullDeck.splice(rmCard, 1);
-    console.log(fullDeck);
-    return
-}
-
-console.log(drawnCard());
-
-function compareCards(){
-    if(card1 === card2){
-
-
-}
-*/
-//BLANK SLATE
-
-//let playGame= function(){
-//FullDeckSetUp & Use shuffle(arr)
-//DivideDeck1 & Deck2
-   //Deck1
-   //Deck2
-//Compare Card Drawn
-   //.shift() then .push()
-//WinCondition - deck.length=52
-
-cardNum = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
-suites = ["D", "C", "H", "S"];
-
-//DeckSetUp 
-let deck1 = [] //Player1's Deck
-let deck2= [] //Player2's Deck
-const fullDeck=[];
-for(let  j=0;  j<4 ;j++){
-    for (let i=0; i<cardNum.length; i++){
-        fullDeck.push(cardNum[i]);
+class Card{
+    constructor(card,suit,value){
+        this.card = card
+        this.suit = suit
+        this.value = value
     }
 }
-console.log('fullDeck is built : ')
-console.log(fullDeck)
-//ShuffleDeck
-fullDeck.sort(() => Math.random() - 0.5)//Shuffle Deck
-console.log("fullDeck is shuffled: ")
-console.log(fullDeck)
-//CreateDeck1 & 2
-let makeDeck1 = function(fulldeck){
-    for (let i=0;i<26;i++){
-        deck1.push(fulldeck[i]);
-    }
-}
-makeDeck1(fullDeck);
-console.log('deck1 is built: ')
-console.log(deck1)
-let makeDeck2 =function(fulldeck){
-    for(let i=26;i<52;i++){
-        deck2.push(fulldeck[i])
-    }
-}
-makeDeck2(fullDeck);
-console.log('deck2 is built: ')
-console.log(deck2)
-//Compare first card, add to end, remove first
-let compare=function(deck1,deck2){ 
-    if(deck1[0] === deck2[0]){
-        for(let i=0;deck1[i]===deck2[i];i+=3 ){
-            if(deck1[i] > deck2[i]){//Deck1 Card wins
-                deck1.push[deck1.slice(0,i+1)];
-                deck1.push[deck2.slice(0,i+1)];
-                deck1.splice(0,i-1);
-                deck2.splice(0,i-1);
-            }else if (deck1[i] < deck2[i]){//Deck2 card wins
-                deck2.push[deck2.splice(0, i+1)];
-                deck2.push[deck1.splice(0,i+1)];
-                deck1.splice(0,i-1);
-                deck2.splice(0,i-1);
-            }else{
-                return 'tie went wrong, else returned'
+class Deck{
+    constructor(){
+        let cardNums = ['2','3','4','6','6','7','8','9','10','J','Q','K','A']
+        let suits = ['H','S','C','D']
+        this.cards = []
+        for(let i=0;i<suits.length;i++){
+            for(let j =0;j<cardNums.length;j++){
+                this.cards.push(new Card(cardNums[j],suits[i],j))
             }
         }
-    }else if(deck1[0] > deck2[0]){//Deck1 Card wins
-        deck1.push[deck1[0]];
-        deck1.push[deck2[0]];
-        deck1.shift();
-        deck2.shift();
-    }else if (deck1[0] < deck2[0]){//Deck2 card wins
-        deck2.push[deck2[0]];
-        deck2.push[deck1[0]];
-        deck1.shift(;)
-        deck2.shift();
-    }else {
-        return 'compare func went wrong'
+        this.shuffle = ()=>{
+            this.cards.sort(() => Math.random() - 0.5)//Shuffle Deck
+        }
+        this.length = this.cards.length
     }
 }
-if(deck1 || deck2 !== 0){
-    for(i )   
+const fullDeck = new Deck()
 
-}else if(deck1 ===0){
-    return "Player Two Wins!!"
+//suffle deck
+fullDeck.shuffle()
 
-}else if (deck2 === 0){
-    return "Player One Wins!!"
-}else{
-    return "Something wrong. No one wins"
+//buildDeck1
+
+let deck1 = []
+let buildDeck1 = ()=>{
+    for(let i=0;i<26;i++){
+        deck1.push(fullDeck.cards[i])
+    }
 }
-//random changes test    
+buildDeck1()
+
+//buildDeck2
+
+let deck2 = []
+let buildDeck2 = ()=>{
+    for(let i=26;i<52;i++){
+        deck2.push(fullDeck.cards[i])
+    }
+}
+buildDeck2()
+
+//Player Class
+
+class Player{
+    constructor(name, deck){
+        this.name = name
+        this.deck = deck 
+    }
+}
+
+//Player1 & Player2 creation
+
+const p1 = new Player('player 1', deck1)
+const p2 = new Player('player 2',deck2)
+
+
+//gameOn
+let rndNum = 0
+let winner = false
+let playRnd=()=>{
+    if(p1.deck.length === 0 || p2.deck.length === 0){
+        winner = true
+    }
+    let tieHold = []
+    //RND WIN COND.
+    if(p1.deck[0].value > p2.deck[0].value){
+        p1.deck.push(p1.deck[0],p2.deck[0])
+        p1.deck.shift()
+        p2.deck.shift()
+        console.log('player 1 takes',p1.deck[0],p2.deck[0],'rndNum: ', rndNum +=1 )
+    }else if (p1.deck[0].value < p2.deck[0].value){
+        p2.deck.push(p1.deck[0],p2.deck[0])
+        p1.deck.shift()
+        p2.deck.shift()
+        console.log('player 2 takes',p1.deck[0],p2.deck[0],'rndNum: ', rndNum+=1)
+        //RND TIE COND.
+    }else if (p1.deck[0].value === p2.deck[0].value){
+        while(p1.deck[0].value===p2.deck[0].value){
+            console.log('else if',p1.deck, p2.deck)
+            tieHold.push(...p1.deck.splice(0,4),...p2.deck.splice(0,4))
+            console.log('tie happened,sent to tieHold',tieHold,'rndNum: ', rndNum)
+            if(p1.deck.length <= 4 || p2.deck.length <= 4){
+                winner = true
+                if(p1.deck.length<4){
+                    return console.log('Player 2 wins! & Player 1 loses')
+                }else if(p2.deck.length<4){
+                    return console.log('Player 1 wins! & Player 2 loses!')
+                }
+            }
+            //TIE TAKES ALL
+            if(p1.deck[0].value > p2.deck[0].value){
+                p1.deck.push(...tieHold)
+                tieHold = []
+                console.log('p1 takes all',p1.deck[0],p2.deck[0],tieHold,'rndNum: ', rndNum+=1)
+                playRnd()
+            }else if(p1.deck[0].value < p2.deck[0].value){
+                p2.deck.push(...tieHold)
+                tieHold = []
+                console.log('p2 takes all',p1.deck[0],p2.deck[0],tieHold,'rndNum: ', rndNum+=1)
+                playRnd()
+            }
+        }
+    }
+}
+let maxGames = 0
+//gameOn
+let gameOn = () =>{
+    while(winner===false){
+        maxGames += 1
+        playRnd()
+        if(maxGames === 1000){
+            console.log('to be continued...')
+            winner = true
+        }
+    }
+    console.log('numbers of games: ' + maxGames)
+    if(p2.deck.length === 0){
+        winner = true
+        console.log('player 2 loses! player 1 wins!!')
+    }else if(p1.deck.length === 0){
+        winner =true
+        console.log('player 1 loses! player 2 wins!!')
+    }
+}
+gameOn()
